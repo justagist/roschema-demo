@@ -1,0 +1,21 @@
+name: Interface check
+
+# Fails the build if a change to robot_msgs breaks compatibility with `main`.
+on:
+  push:
+  pull_request:
+
+jobs:
+  roschema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # need history so origin/main is available as a baseline
+      - uses: justagist/roschema/action@main
+        with:
+          against: origin/main
+          # Pre-release: install roschema from git. After the first PyPI
+          # release, drop this line (the action defaults to the PyPI package)
+          # and pin the action to a tag, e.g. justagist/roschema/action@v1.
+          version: "git+https://github.com/justagist/roschema"
