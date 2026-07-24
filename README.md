@@ -61,6 +61,5 @@ and PR, comparing the branch against `origin/main`. Open a PR from each feature
 branch to `main` to see the check pass on one and fail on the other. No local
 setup is needed - the action provisions roschema on the runner.
 
-> This demo pins the action to `@main` and installs roschema from git because it
-> predates the first PyPI release. Once roschema is published, use
-> `justagist/roschema/action@v1` and drop the `version:` input.
+The workflow pins the action to a release tag (`justagist/roschema/action@v0.1.0`)
+and lets it install roschema from PyPI (the action's default).
