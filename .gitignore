@@ -1,2 +1,3 @@
 roschema.lock
 __pycache__/
+.venv/
