@@ -12,6 +12,7 @@ robot_msgs/
   msg/RobotStatus.msg
   srv/SetMode.srv
 roschema.toml                    # check configuration
+.pre-commit-config.yaml          # roschema's pre-commit hooks
 .github/workflows/roschema.yml   # CI gate using the roschema Action
 ```
 
@@ -41,6 +42,9 @@ roschema explain RS004                 # what a rule reports, and why it matters
 # compare against an upstream you have not merged yet
 roschema check --against origin/main
 
+# only this branch's changes, even after main has moved on (merge base)
+roschema check --against main...
+
 # other capabilities
 roschema lint                          # naming/style rules
 roschema fmt --check                   # formatting gate
@@ -64,6 +68,15 @@ robot_msgs
   robot_msgs: suggests MAJOR version bump (3 wire/source-breaking change(s))
 ```
 
+## pre-commit
+
+`.pre-commit-config.yaml` enables roschema's hooks. After `pre-commit install`
+(with [pre-commit](https://pre-commit.com/) installed, e.g.
+`uv tool install pre-commit`), every commit is checked against the last one,
+linted and formatted, so a breaking change like `feature/breaking-change`'s is
+stopped before it is committed. `pre-commit run --all-files` runs the hooks
+without committing.
+
 ## CI
 
 `.github/workflows/roschema.yml` runs the roschema GitHub Action on every push
@@ -75,4 +88,4 @@ provisions roschema on the runner.
 
 The workflow uses `justagist/roschema/action@main`, which installs the latest
 roschema release from PyPI on every run. To pin a release instead, set the
-action's `version` input (for example `version: roschema==0.4.0`).
+action's `version` input (for example `version: roschema==0.5.0`).
