@@ -26,7 +26,7 @@ roschema.toml                    # check configuration
 ## Try it locally
 
 ```bash
-pip install roschema        # or: uvx roschema ...
+uv tool install roschema    # or run it without installing: uvx roschema ...
 
 # compare a branch against main
 git switch feature/safe-change
@@ -48,10 +48,17 @@ roschema freeze -o roschema.lock       # pin a baseline, then: check --against r
 Expected output on `feature/breaking-change`:
 
 ```
-RS001 error  robot_msgs/msg/RobotStatus.message: field 'message' removed  (wire-breaking)
-RS003 error  robot_msgs/msg/RobotStatus.battery_percent: type changed float32 -> float64  (wire-breaking)
-RS004 error  robot_msgs/msg/RobotStatus: fields reordered ...  (wire-breaking)
-  robot_msgs: suggests MAJOR version bump
+checking workspace:/path/to/roschema-demo  against  git:main
+
+robot_msgs
+  RS001 error  robot_msgs/msg/RobotStatus.message: field 'message' removed  (wire-breaking)
+      robot_msgs/msg/RobotStatus.msg:7
+  RS003 error  robot_msgs/msg/RobotStatus.battery_percent: type changed float32 -> float64  (wire-breaking)
+      robot_msgs/msg/RobotStatus.msg:8 -> robot_msgs/msg/RobotStatus.msg:7
+  RS004 error  robot_msgs/msg/RobotStatus: fields reordered: mode, battery_percent -> battery_percent, mode  (wire-breaking)
+
+3 finding(s): 3 error(s), 0 warning(s)
+  robot_msgs: suggests MAJOR version bump (3 wire/source-breaking change(s))
 ```
 
 ## CI
@@ -61,5 +68,6 @@ and PR, comparing the branch against `origin/main`. Open a PR from each feature
 branch to `main` to see the check pass on one and fail on the other. No local
 setup is needed - the action provisions roschema on the runner.
 
-The workflow pins the action to a release tag (`justagist/roschema/action@v0.1.1`)
-and lets it install roschema from PyPI (the action's default).
+The workflow uses `justagist/roschema/action@main`, which installs the latest
+roschema release from PyPI on every run. To pin a release instead, set the
+action's `version` input (for example `version: roschema==0.2.1`).
