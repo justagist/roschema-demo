@@ -1,7 +1,7 @@
 # roschema's pre-commit hooks: `pre-commit install` to run them on every commit.
 repos:
   - repo: https://github.com/justagist/roschema
-    rev: v0.5.0
+    rev: v0.6.0
     hooks:
       - id: roschema-check   # staged changes against the last commit
       - id: roschema-lint

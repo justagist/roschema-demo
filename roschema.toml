@@ -1,7 +1,7 @@
 # roschema configuration for the demo workspace.
 
 [check]
-level = "source"          # wire | source | introspection | behavior
+level = "source"          # wire | introspection | source | behavior
 
 # Example: intentionally allow a specific break (a reason is mandatory).
 # Uncomment to let the "breaking" branch pass despite removing this field.

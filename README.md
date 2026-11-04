@@ -88,4 +88,4 @@ provisions roschema on the runner.
 
 The workflow uses `justagist/roschema/action@main`, which installs the latest
 roschema release from PyPI on every run. To pin a release instead, set the
-action's `version` input (for example `version: roschema==0.5.0`).
+action's `version` input (for example `version: roschema==0.6.0`).
